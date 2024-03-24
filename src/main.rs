@@ -35,15 +35,14 @@ struct Args {
 }
 
 fn run_main(lower: u64, upper: u64, address: &[u8]) {
-    // Initialize as few variables as possible, minimizing execution overhead in for loop
+    // Initialize as few variables as possible in loop, minimizing execution overhead in loop
     let secp: Secp256k1<All> = secp256k1::Secp256k1::new();
     let now = Instant::now();
     let mut output= [0u8; 32];
     for seed in lower..upper {
         let (priv_key, pub_key) = utils::generate_keypair(&secp, seed);
         utils::public_key_address_hash(&pub_key, &mut output);
-        let public_address = &output[12..];
-        if public_address == address {
+        if &output[12..] == address {
             println!("Found (ADDRESS,KEY,TRIES) {:?}:{}:{}", address, &priv_key.to_string(), seed - lower);
             break
         }
