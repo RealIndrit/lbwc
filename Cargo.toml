@@ -1,0 +1,25 @@
+[package]
+authors = ["Johan Andersson <externalcontact.shield824@passmail.net>"]
+categories = ["cryptography", "cryptography::cryptocurrencies"]
+description = "A simple private key rand seed brutforce for cracking private keys using linear search sequence"
+keywords = ["wallet", "crypto", "cryptocurrency", "cli", "terminal"]
+license = "MIT OR Apache-2.0"
+name = "lbwc"
+repository = "https://github.com/RealIndrit/lbwc"
+version = "0.0.1"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[profile.dev]
+opt-level = 1
+
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+strip = "symbols"
+
+[dependencies]
+secp256k1 = { version = "0.20.3", features = ["rand"] }
+tiny-keccak = { version = "2.0.2", features = ["keccak"] }
+clap = { version = "4.5.3", features = ["derive"] }
